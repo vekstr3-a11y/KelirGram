@@ -1,0 +1,98 @@
+name: KelirGram build release APK
+
+# KelirGram = rebranded exteraGram (fully open, no private submodules).
+# Cloud build on GitHub-hosted runners; publishes a downloadable APK to Releases.
+
+on:
+  workflow_dispatch:
+    inputs:
+      abi:
+        description: "ABI to build"
+        default: arm64
+        type: choice
+        options:
+          - arm64
+          - afat
+  push:
+    branches: [ kelirgram ]
+  release:
+    types: [ published ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    env:
+      GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx6g -Dorg.gradle.daemon=false"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate signing keystore (throwaway, for direct-download installs)
+        run: |
+          mkdir -p TMessagesProj/config
+          keytool -genkeypair -v \
+            -keystore TMessagesProj/config/extera.jks \
+            -alias kelirgram -keyalg RSA -keysize 2048 -validity 10000 \
+            -storepass kelirpass -keypass kelirpass \
+            -dname "CN=KelirGram, OU=KelirGram, O=KelirGram, L=NA, S=NA, C=NA"
+
+      # API_KEYS is gitignored; build.gradle reads APP_ID/APP_HASH + signing from it.
+      # v1 reuses Telegram's public demo APP_ID; swap to KelirGram's own core.telegram.org id later.
+      - name: Write API_KEYS
+        run: |
+          cat > API_KEYS <<'EOF'
+          APP_ID = 6
+          APP_HASH = "eb06d4abfb49dc3eeb1aeb98ae0f581e"
+          MAPS_V2_API = 0
+          SIGNING_KEY_PASSWORD = kelirpass
+          SIGNING_KEY_ALIAS = kelirgram
+          SIGNING_KEY_STORE_PASSWORD = kelirpass
+          EOF
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK (exact NDK/build-tools the project pins)
+        uses: android-actions/setup-android@v3
+        with:
+          packages: >-
+            platforms;android-33
+            build-tools;33.0.0
+            ndk;21.4.7075529
+            cmake;3.10.2.4988404
+
+      - name: Install native build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bison gcc g++ make curl ninja-build
+
+      - name: Grant gradlew permission
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: |
+          if [ "${{ inputs.abi }}" = "afat" ]; then
+            ./gradlew --no-daemon assembleAfatRelease
+          else
+            ./gradlew --no-daemon assembleArm64Release
+          fi
+
+      - name: Collect APK
+        run: |
+          mkdir -p out
+          cp TMessagesProj/build/outputs/apk/*/release/*.apk out/ || true
+          ls -la out
+
+      - name: Upload as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: KelirGram-APK
+          path: out/*.apk
+
+      - name: Publish APK to Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: out/*.apk
