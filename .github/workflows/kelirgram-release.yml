@@ -29,6 +29,7 @@ jobs:
       - name: Generate signing keystore (throwaway, for direct-download installs)
         run: |
           mkdir -p TMessagesProj/config
+          rm -f TMessagesProj/config/extera.jks
           keytool -genkeypair -v \
             -keystore TMessagesProj/config/extera.jks \
             -alias kelirgram -keyalg RSA -keysize 2048 -validity 10000 \
