@@ -111,6 +111,7 @@ public class ExteraConfig {
     // Kelir — Privacy
     public static boolean ghostHideTyping;
     public static boolean ghostHideSeen;
+    public static boolean antiRevoke;
 
     public static int sendPhotosQuality;
     public static boolean hideCameraTile;
@@ -246,6 +247,7 @@ public class ExteraConfig {
             // Kelir — Privacy
             ghostHideTyping = preferences.getBoolean("ghostHideTyping", false);
             ghostHideSeen = preferences.getBoolean("ghostHideSeen", false);
+            antiRevoke = preferences.getBoolean("antiRevoke", false);
 
             sendPhotosQuality = preferences.getInt("sendPhotosQuality", 1);
             hidePhotoCounter = preferences.getBoolean("hidePhotoCounter", false);

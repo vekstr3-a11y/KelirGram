@@ -170,6 +170,7 @@
     <string name="KelirPrivacy">Privacy</string>
     <string name="KelirHideTyping">Do not broadcast typing</string>
     <string name="KelirHideSeen">Do not send read receipts</string>
+    <string name="KelirAntiRevoke">Keep deleted messages (anti-revoke, experimental)</string>
 
     <!-- Updates -->
     <string name="LastCheck">Last Check</string>

@@ -150,6 +150,7 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
     private int privacyHeaderRow;
     private int ghostHideTypingRow;
     private int ghostHideSeenRow;
+    private int antiRevokeRow;
 
     private boolean adminShortcutsExpanded;
     private boolean messageMenuExpanded;
@@ -325,6 +326,7 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
         privacyHeaderRow = newRow();
         ghostHideTypingRow = newRow();
         ghostHideSeenRow = newRow();
+        antiRevokeRow = newRow();
     }
 
     @Override
@@ -351,6 +353,9 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
         } else if (position == ghostHideSeenRow) {
             ExteraConfig.editor.putBoolean("ghostHideSeen", ExteraConfig.ghostHideSeen ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.ghostHideSeen);
+        } else if (position == antiRevokeRow) {
+            ExteraConfig.editor.putBoolean("antiRevoke", ExteraConfig.antiRevoke ^= true).apply();
+            ((TextCheckCell) view).setChecked(ExteraConfig.antiRevoke);
         } else if (position == hideShareButtonRow) {
             ExteraConfig.editor.putBoolean("hideShareButton", ExteraConfig.hideShareButton ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.hideShareButton);
@@ -682,7 +687,9 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
                     } else if (position == ghostHideTypingRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirHideTyping), ExteraConfig.ghostHideTyping, true);
                     } else if (position == ghostHideSeenRow) {
-                        textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirHideSeen), ExteraConfig.ghostHideSeen, false);
+                        textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirHideSeen), ExteraConfig.ghostHideSeen, true);
+                    } else if (position == antiRevokeRow) {
+                        textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirAntiRevoke), ExteraConfig.antiRevoke, false);
                     }
                     break;
                 case 7:

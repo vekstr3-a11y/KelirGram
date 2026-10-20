@@ -13091,6 +13091,9 @@ public class MessagesController extends BaseController implements NotificationCe
     }
 
     protected void deleteMessagesByPush(long dialogId, ArrayList<Integer> ids, long channelId) {
+        if (com.exteragram.messenger.ExteraConfig.antiRevoke) {
+            return;
+        }
         getMessagesStorage().getStorageQueue().postRunnable(() -> {
             AndroidUtilities.runOnUIThread(() -> {
                 getNotificationCenter().postNotificationName(NotificationCenter.messagesDeleted, ids, channelId, false);
@@ -16068,6 +16071,9 @@ public class MessagesController extends BaseController implements NotificationCe
         LongSparseIntArray markAsReadMessagesOutboxFinal = markAsReadMessagesOutbox;
         LongSparseArray<ArrayList<Integer>> markContentAsReadMessagesFinal = markContentAsReadMessages;
         SparseIntArray markAsReadEncryptedFinal = markAsReadEncrypted;
+        if (com.exteragram.messenger.ExteraConfig.antiRevoke) {
+            deletedMessages = null;
+        }
         LongSparseArray<ArrayList<Integer>> deletedMessagesFinal = deletedMessages;
         LongSparseArray<ArrayList<Integer>> scheduledDeletedMessagesFinal = scheduledDeletedMessages;
         LongSparseIntArray clearHistoryMessagesFinal = clearHistoryMessages;
