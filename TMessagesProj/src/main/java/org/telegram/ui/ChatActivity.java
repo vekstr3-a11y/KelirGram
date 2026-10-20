@@ -7088,7 +7088,7 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
         chatScrollHelper.setScrollListener(this::invalidateMessagesVisiblePart);
         chatScrollHelper.setAnimationCallback(chatScrollHelperCallback);
 
-        flagSecure = new FlagSecureReason(getParentActivity().getWindow(), () -> currentEncryptedChat != null || SharedConfig.passcodeHash.length() > 0 && !SharedConfig.allowScreenCapture || getMessagesController().isChatNoForwards(currentChat));
+        flagSecure = new FlagSecureReason(getParentActivity().getWindow(), () -> currentEncryptedChat != null || SharedConfig.passcodeHash.length() > 0 && !SharedConfig.allowScreenCapture || getMessagesController().isChatNoForwards(currentChat) || com.exteragram.messenger.ExteraConfig.antiScreenshot);
 
         if (oldMessage != null) {
             chatActivityEnterView.setFieldText(oldMessage);

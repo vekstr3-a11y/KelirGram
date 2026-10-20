@@ -112,6 +112,7 @@ public class ExteraConfig {
     public static boolean ghostHideTyping;
     public static boolean ghostHideSeen;
     public static boolean antiRevoke;
+    public static boolean antiScreenshot;
 
     public static int sendPhotosQuality;
     public static boolean hideCameraTile;
@@ -248,6 +249,7 @@ public class ExteraConfig {
             ghostHideTyping = preferences.getBoolean("ghostHideTyping", false);
             ghostHideSeen = preferences.getBoolean("ghostHideSeen", false);
             antiRevoke = preferences.getBoolean("antiRevoke", false);
+            antiScreenshot = preferences.getBoolean("antiScreenshot", false);
 
             sendPhotosQuality = preferences.getInt("sendPhotosQuality", 1);
             hidePhotoCounter = preferences.getBoolean("hidePhotoCounter", false);

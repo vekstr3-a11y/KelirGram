@@ -171,6 +171,7 @@
     <string name="KelirHideTyping">Do not broadcast typing</string>
     <string name="KelirHideSeen">Do not send read receipts</string>
     <string name="KelirAntiRevoke">Keep deleted messages (anti-revoke, experimental)</string>
+    <string name="KelirAntiScreenshot">Block screenshots in chats</string>
 
     <!-- Updates -->
     <string name="LastCheck">Last Check</string>
