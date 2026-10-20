@@ -147,6 +147,10 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
     private int doubleTapSeekDurationRow;
     private int videosDividerRow;
 
+    private int privacyHeaderRow;
+    private int ghostHideTypingRow;
+    private int ghostHideSeenRow;
+
     private boolean adminShortcutsExpanded;
     private boolean messageMenuExpanded;
 
@@ -317,6 +321,10 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
         pauseOnMinimizeRow = newRow();
         disablePlaybackRow = newRow();
         videosDividerRow = newRow();
+
+        privacyHeaderRow = newRow();
+        ghostHideTypingRow = newRow();
+        ghostHideSeenRow = newRow();
     }
 
     @Override
@@ -337,6 +345,12 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
         } else if (position == hideKeyboardOnScrollRow) {
             ExteraConfig.editor.putBoolean("hideKeyboardOnScroll", ExteraConfig.hideKeyboardOnScroll ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.hideKeyboardOnScroll);
+        } else if (position == ghostHideTypingRow) {
+            ExteraConfig.editor.putBoolean("ghostHideTyping", ExteraConfig.ghostHideTyping ^= true).apply();
+            ((TextCheckCell) view).setChecked(ExteraConfig.ghostHideTyping);
+        } else if (position == ghostHideSeenRow) {
+            ExteraConfig.editor.putBoolean("ghostHideSeen", ExteraConfig.ghostHideSeen ^= true).apply();
+            ((TextCheckCell) view).setChecked(ExteraConfig.ghostHideSeen);
         } else if (position == hideShareButtonRow) {
             ExteraConfig.editor.putBoolean("hideShareButton", ExteraConfig.hideShareButton ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.hideShareButton);
@@ -630,6 +644,8 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
                         headerCell.setText(LocaleController.getString("DoubleTap", R.string.DoubleTap));
                     } else if (position == photosHeaderRow) {
                         headerCell.setText(LocaleController.getString("AutoDownloadPhotos", R.string.AutoDownloadPhotos));
+                    } else if (position == privacyHeaderRow) {
+                        headerCell.setText(LocaleController.getString(R.string.KelirPrivacy));
                     }
                     break;
                 case 5:
@@ -663,6 +679,10 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
                         textCheckCell.setTextAndCheck(LocaleController.getString("DisablePlayback", R.string.DisablePlayback), ExteraConfig.disablePlayback, false);
                     } else if (position == hideCounterRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("HidePhotoCounter", R.string.HidePhotoCounter), LocaleController.getString("HidePhotoCounterInfo", R.string.HidePhotoCounterInfo), ExteraConfig.hidePhotoCounter, true, true);
+                    } else if (position == ghostHideTypingRow) {
+                        textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirHideTyping), ExteraConfig.ghostHideTyping, true);
+                    } else if (position == ghostHideSeenRow) {
+                        textCheckCell.setTextAndCheck(LocaleController.getString(R.string.KelirHideSeen), ExteraConfig.ghostHideSeen, false);
                     }
                     break;
                 case 7:
@@ -763,7 +783,7 @@ public class ChatsPreferencesActivity extends BasePreferencesActivity implements
             if (position == stickerShapeDividerRow) {
                 return 1;
             } else if (position == stickersHeaderRow || position == chatsHeaderRow || position == videosHeaderRow || position == stickerShapeHeaderRow ||
-                    position == doubleTapHeaderRow || position == photosHeaderRow || position == messagesHeaderRow) {
+                    position == doubleTapHeaderRow || position == photosHeaderRow || position == messagesHeaderRow || position == privacyHeaderRow) {
                 return 3;
             } else if (position == doubleTapActionRow || position == doubleTapActionOutOwnerRow || position == bottomButtonRow || position == videoMessagesCameraRow || position == doubleTapSeekDurationRow) {
                 return 7;

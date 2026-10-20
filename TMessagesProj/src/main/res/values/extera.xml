@@ -166,6 +166,11 @@
     <string name="Decrypt">Decrypt</string>
     <string name="EncryptionKeyInfo">This key will be used to encrypt and decrypt messages in this chat room.</string>
 
+    <!-- Kelir — Privacy -->
+    <string name="KelirPrivacy">Privacy</string>
+    <string name="KelirHideTyping">Do not broadcast typing</string>
+    <string name="KelirHideSeen">Do not send read receipts</string>
+
     <!-- Updates -->
     <string name="LastCheck">Last Check</string>
     <string name="CurrentVersion">Current Version</string>

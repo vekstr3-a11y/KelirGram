@@ -108,6 +108,10 @@ public class ExteraConfig {
     public static boolean showHistoryButton;
     public static boolean addCommaAfterMention;
 
+    // Kelir — Privacy
+    public static boolean ghostHideTyping;
+    public static boolean ghostHideSeen;
+
     public static int sendPhotosQuality;
     public static boolean hideCameraTile;
     public static boolean hidePhotoCounter;
@@ -238,6 +242,10 @@ public class ExteraConfig {
             showHistoryButton = preferences.getBoolean("showHistoryButton", false);
 
             addCommaAfterMention = preferences.getBoolean("addCommaAfterMention", true);
+
+            // Kelir — Privacy
+            ghostHideTyping = preferences.getBoolean("ghostHideTyping", false);
+            ghostHideSeen = preferences.getBoolean("ghostHideSeen", false);
 
             sendPhotosQuality = preferences.getInt("sendPhotosQuality", 1);
             hidePhotoCounter = preferences.getBoolean("hidePhotoCounter", false);
