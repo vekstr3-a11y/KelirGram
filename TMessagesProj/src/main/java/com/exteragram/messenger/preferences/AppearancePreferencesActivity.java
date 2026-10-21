@@ -78,6 +78,10 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
             LocaleController.getString("Halloween", R.string.Halloween)
     };
 
+    private final CharSequence[] kelirEffects = new CharSequence[]{
+            "Вимкнено", "Сніг", "Літо", "Осінь", "Весна", "Авто (за порою року)"
+    };
+
     private int avatarCornersPreviewRow;
     private int avatarCornersDividerRow;
 
@@ -105,6 +109,7 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
     private int fabShapeRow;
     private int forceBlurRow;
     private int forceSnowRow;
+    private int kelirEffectRow;
     private int useSystemFontsRow;
     private int useSystemEmojiRow;
     private int newSwitchStyleRow;
@@ -161,6 +166,7 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
         fabShapeRow = newRow();
         forceBlurRow = newRow();
         forceSnowRow = newRow();
+        kelirEffectRow = newRow();
         useSystemFontsRow = newRow();
         useSystemEmojiRow = newRow();
         newSwitchStyleRow = newRow();
@@ -282,6 +288,16 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
         } else if (position == forceSnowRow) {
             ExteraConfig.editor.putBoolean("forceSnow", ExteraConfig.forceSnow ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.forceSnow);
+        } else if (position == kelirEffectRow) {
+            if (getParentActivity() == null) {
+                return;
+            }
+            PopupUtils.showDialog(kelirEffects, "Ефект фону", ExteraConfig.kelirEffect, getContext(), which -> {
+                ExteraConfig.editor.putInt("kelirEffect", ExteraConfig.kelirEffect = which).apply();
+                listAdapter.notifyItemChanged(kelirEffectRow, payload);
+                parentLayout.rebuildAllFragmentViews(false, false);
+                showBulletin();
+            });
             showBulletin();
         } else if (position == eventChooserRow) {
             if (getParentActivity() == null) {
@@ -481,7 +497,9 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
                     break;
                 case 7:
                     TextSettingsCell textSettingsCell = (TextSettingsCell) holder.itemView;
-                    if (position == eventChooserRow) {
+                    if (position == kelirEffectRow) {
+                        textSettingsCell.setTextAndValue("Ефект фону", kelirEffects[ExteraConfig.kelirEffect], payload, true);
+                    } else if (position == eventChooserRow) {
                         textSettingsCell.setTextAndValue(LocaleController.getString("DrawerIconSet", R.string.DrawerIconSet), events[ExteraConfig.eventType], payload, true);
                     } else if (position == actionBarTitleRow) {
                         textSettingsCell.setTextAndValue(LocaleController.getString("ActionBarTitle", R.string.ActionBarTitle), titles[ExteraConfig.titleText], payload, true);
@@ -514,7 +532,7 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
                 return 2;
             } else if (position == appearanceHeaderRow || position == drawerHeaderRow || position == drawerOptionsHeaderRow || position == solarIconsHeaderRow || position == foldersHeaderRow || position == chatListHeaderRow) {
                 return 3;
-            } else if (position == eventChooserRow || position == actionBarTitleRow || position == tabStyleRow || position == tabTitleRow) {
+            } else if (position == eventChooserRow || position == actionBarTitleRow || position == tabStyleRow || position == tabTitleRow || position == kelirEffectRow) {
                 return 7;
             } else if (position == appearanceDividerRow || position == solarIconsInfoRow || position == foldersDividerRow || position == chatListDividerRow) {
                 return 8;

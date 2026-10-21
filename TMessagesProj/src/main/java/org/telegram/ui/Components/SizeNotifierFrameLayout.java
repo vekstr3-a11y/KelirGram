@@ -68,6 +68,7 @@ public class SizeNotifierFrameLayout extends FrameLayout {
     private boolean animationInProgress;
     private boolean skipBackgroundDrawing;
     SnowflakesEffect snowflakesEffect;
+    KelirWeatherEffect kelirEffect;
     protected View backgroundView;
     boolean attached;
 
@@ -490,7 +491,15 @@ public class SizeNotifierFrameLayout extends FrameLayout {
     }
 
     private void checkSnowflake(Canvas canvas) {
-        if (Theme.canStartHolidayAnimation() && LiteMode.isEnabled(LiteMode.FLAG_CHAT_BACKGROUND)) {
+        if (!LiteMode.isEnabled(LiteMode.FLAG_CHAT_BACKGROUND)) {
+            return;
+        }
+        if (KelirWeatherEffect.active()) {
+            if (kelirEffect == null) {
+                kelirEffect = new KelirWeatherEffect(1);
+            }
+            kelirEffect.onDraw(backgroundView, canvas);
+        } else if (Theme.canStartHolidayAnimation()) {
             if (snowflakesEffect == null) {
                 snowflakesEffect = new SnowflakesEffect(1);
             }

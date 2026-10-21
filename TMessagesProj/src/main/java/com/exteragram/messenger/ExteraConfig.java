@@ -51,6 +51,7 @@ public class ExteraConfig {
     public static boolean squareFab;
     public static boolean forceBlur;
     public static boolean forceSnow;
+    public static int kelirEffect;
     public static boolean useSystemFonts;
     public static boolean newSwitchStyle;
     public static boolean disableDividers;
@@ -197,6 +198,7 @@ public class ExteraConfig {
             squareFab = preferences.getBoolean("squareFab", true);
             forceBlur = preferences.getBoolean("forceBlur", false);
             forceSnow = preferences.getBoolean("forceSnow", false);
+            kelirEffect = preferences.getInt("kelirEffect", 0);
             useSystemFonts = preferences.getBoolean("useSystemFonts", true);
             newSwitchStyle = preferences.getBoolean("newSwitchStyle", true);
             disableDividers = preferences.getBoolean("disableDividers", false);
