@@ -66,7 +66,7 @@ public class KelirWeatherEffect {
     private long lastTime;
 
     private static final class P {
-        float x, y, vx, vy, size, amp, seed, rot, age, life, alpha;
+        float x, y, vx, vy, size, amp, seed, rot, rotv, age, life, alpha;
         int kind;
     }
 
