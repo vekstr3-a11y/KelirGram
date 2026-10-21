@@ -200,7 +200,7 @@ public class ExteraConfig {
             useSystemFonts = preferences.getBoolean("useSystemFonts", true);
             newSwitchStyle = preferences.getBoolean("newSwitchStyle", true);
             disableDividers = preferences.getBoolean("disableDividers", false);
-            useLNavigation = preferences.getBoolean("useLNavigation", false);
+            useLNavigation = preferences.getBoolean("useLNavigation", true); // Kelir: bottom navigation on by default
 
             eventType = preferences.getInt("eventType", 0);
             alternativeOpenAnimation = preferences.getBoolean("alternativeOpenAnimation", true);
