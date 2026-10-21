@@ -40,22 +40,9 @@ public class HeaderSettingsCell extends FrameLayout {
     public HeaderSettingsCell(Context context) {
         super(context);
 
-        Drawable arrow = ContextCompat.getDrawable(context, R.drawable.ic_logo_foreground).mutate();
-        Theme.ThemeInfo theme = Theme.getActiveTheme();
-        int color = ContextCompat.getColor(context, R.color.ic_background);
-
-        if (theme.isMonet() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            color = MonetUtils.getColor(theme.isDark() ? "n1_800" : "a1_100");
-            arrow.setColorFilter(new PorterDuffColorFilter(MonetUtils.getColor(theme.isDark() ? "a1_100" : "n2_700"), PorterDuff.Mode.MULTIPLY));
-        } else {
-            arrow.setAlpha((int) (70 * 2.55f));
-        }
-
         ImageView logo = new ImageView(context);
-        logo.setScaleType(ImageView.ScaleType.CENTER);
-        logo.setBackground(Theme.createCircleDrawable(AndroidUtilities.dp(108), color));
-        //TODO: logo.setBackground(new GradientArrowBackground(context, color));
-        logo.setImageDrawable(arrow);
+        logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        logo.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_launcher_foreground));
         addView(logo, LayoutHelper.createFrame(108, 108, Gravity.CENTER | Gravity.TOP, 0, 20, 0, 0));
 
         titleTextView = new TextView(context);
