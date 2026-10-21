@@ -64,8 +64,8 @@ def isPmBuild = "false"
 def abis = [9: 'universal', 1: 'armeabi-v7a', 5: 'arm64-v8a', 2: 'x86', 6: 'x86_64']
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion '33.0.1'
+    compileSdkVersion 34
+    buildToolsVersion '34.0.0'
     ndkVersion "21.4.7075529"
     namespace 'org.telegram.messenger'
 
@@ -79,7 +79,7 @@ android {
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionName APP_VERSION_NAME
 
         // Obtain your own keys at: https://core.telegram.org/api/obtaining_api_id
