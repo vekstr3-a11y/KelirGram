@@ -110,6 +110,7 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
     private int forceBlurRow;
     private int forceSnowRow;
     private int kelirEffectRow;
+    private int kelirNavRow;
     private int useSystemFontsRow;
     private int useSystemEmojiRow;
     private int newSwitchStyleRow;
@@ -167,6 +168,7 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
         forceBlurRow = newRow();
         forceSnowRow = newRow();
         kelirEffectRow = newRow();
+        kelirNavRow = newRow();
         useSystemFontsRow = newRow();
         useSystemEmojiRow = newRow();
         newSwitchStyleRow = newRow();
@@ -288,6 +290,9 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
         } else if (position == forceSnowRow) {
             ExteraConfig.editor.putBoolean("forceSnow", ExteraConfig.forceSnow ^= true).apply();
             ((TextCheckCell) view).setChecked(ExteraConfig.forceSnow);
+        } else if (position == kelirNavRow) {
+            ExteraConfig.editor.putBoolean("kelirBottomNav", ExteraConfig.kelirBottomNav ^= true).apply();
+            ((TextCheckCell) view).setChecked(ExteraConfig.kelirBottomNav);
         } else if (position == kelirEffectRow) {
             if (getParentActivity() == null) {
                 return;
@@ -449,6 +454,8 @@ public class AppearancePreferencesActivity extends BasePreferencesActivity {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ForceBlur", R.string.ForceBlur), LocaleController.getString("ForceBlurInfo", R.string.ForceBlurInfo), ExteraConfig.forceBlur, true, true);
                     } else if (position == forceSnowRow) {
                         textCheckCell.setTextAndValueAndCheck(LocaleController.getString("ForceSnow", R.string.ForceSnow), LocaleController.getString("ForceSnowInfo", R.string.ForceSnowInfo), ExteraConfig.forceSnow, true, true);
+                    } else if (position == kelirNavRow) {
+                        textCheckCell.setTextAndCheck("Нижня панель вкладок", ExteraConfig.kelirBottomNav, true);
                     } else if (position == alternativeNavigationRow) {
                         textCheckCell.setTextAndCheck(LocaleController.getString("AlternativeNavigation", R.string.AlternativeNavigation), ExteraConfig.useLNavigation, false);
                     } else if (position == centerTitleRow) {

@@ -52,6 +52,7 @@ public class ExteraConfig {
     public static boolean forceBlur;
     public static boolean forceSnow;
     public static int kelirEffect;
+    public static boolean kelirBottomNav;
     public static boolean useSystemFonts;
     public static boolean newSwitchStyle;
     public static boolean disableDividers;
@@ -199,6 +200,7 @@ public class ExteraConfig {
             forceBlur = preferences.getBoolean("forceBlur", false);
             forceSnow = preferences.getBoolean("forceSnow", false);
             kelirEffect = preferences.getInt("kelirEffect", 0);
+            kelirBottomNav = preferences.getBoolean("kelirBottomNav", true);
             useSystemFonts = preferences.getBoolean("useSystemFonts", true);
             newSwitchStyle = preferences.getBoolean("newSwitchStyle", true);
             disableDividers = preferences.getBoolean("disableDividers", false);

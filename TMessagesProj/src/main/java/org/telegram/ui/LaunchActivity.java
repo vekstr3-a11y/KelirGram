@@ -170,6 +170,7 @@ import org.telegram.ui.Components.FolderBottomSheet;
 import org.telegram.ui.Components.Forum.ForumUtilities;
 import org.telegram.ui.Components.GroupCallPip;
 import org.telegram.ui.Components.JoinGroupAlert;
+import org.telegram.ui.Components.KelirBottomBar;
 import org.telegram.ui.Components.LayoutHelper;
 import org.telegram.ui.Components.MediaActionDrawable;
 import org.telegram.ui.Components.PasscodeView;
@@ -1129,6 +1130,7 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
             } else {
                 drawerLayoutContainer.addView(actionBarLayout.getView(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             }
+            KelirBottomBar.attach(this);
         }
         FloatingDebugController.setActive(this, SharedConfig.isFloatingDebugActive, false);
     }
@@ -1263,6 +1265,23 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         ProfileActivity fragment = new ProfileActivity(args);
         presentFragment(fragment);
         drawerLayoutContainer.closeDrawer(false);
+    }
+
+    public void kelirSwitchTab(int tab) {
+        BaseFragment fragment;
+        if (tab == KelirBottomBar.TAB_CONTACTS) {
+            fragment = new ContactsActivity(null);
+        } else if (tab == KelirBottomBar.TAB_CALLS) {
+            fragment = new CallLogActivity();
+        } else if (tab == KelirBottomBar.TAB_SETTINGS) {
+            Bundle args = new Bundle();
+            args.putLong("user_id", UserConfig.getInstance(currentAccount).clientUserId);
+            fragment = new ProfileActivity(args);
+        } else {
+            fragment = new DialogsActivity(new Bundle());
+        }
+        INavigationLayout.NavigationParams params = new INavigationLayout.NavigationParams(fragment).setRemoveLast(true);
+        presentFragment(params);
     }
 
     private void checkSystemBarColors() {
